@@ -11,7 +11,7 @@ $(document).ready(function(){
     var task = {};
     task.task_name = userTask;
     task.complete = "No";
-    console.log(task);
+
     $.ajax({
       type: 'POST',
       url: '/tasks',
