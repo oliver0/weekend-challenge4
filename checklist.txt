@@ -3,7 +3,7 @@
 3. [X] Create containers and input field in html with some basic styling
 4. [X] Create listener in jquery for task submit button, make sure it works
 5. [X] Make an ajax function that posts the task object to the tasks.js route
-6. [] Make sure the object arrives in the post route. Make insert query to database
+6. [X] Make sure the object arrives in the post route. Make insert query to database
 7. [] If it is successful in client.js, make a get request to tasks.js
 8. [] Write get route in tasks.js
 9. [] Make SELECT query to database, send back the tasks if found

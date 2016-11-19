@@ -3,6 +3,11 @@ var router = express.Router();
 var pg = require('pg');
 var connectionString = 'postgres://localhost:5432/todo_list';
 
+router.get('/', function(req,res){
+  console.log('got to tasks.js correctly!');
+  res.sendStatus(201);
+});
+
 router.post('/', function(req, res){
   var task = req.body;
   pg.connect(connectionString, function(err, client, done) {

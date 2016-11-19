@@ -18,9 +18,26 @@ $(document).ready(function(){
       data: task,
       success: function(response){
         console.log('task post successful!!');
+        getTasks();
+
       },
       error: function(){
         console.log('could not post task');
+      }
+    });
+  }
+
+  // Makes an ajax get request to the tasks.js route. Gets all of the current tasks
+  function getTasks(){
+
+    $.ajax({
+      type: 'GET',
+      url: '/tasks',
+      success: function(response){
+        console.log('get tasks successful!');
+      },
+      error: function(){
+        console.log('could not get tasks');
       }
     });
   }
