@@ -4,8 +4,25 @@ var pg = require('pg');
 var connectionString = 'postgres://localhost:5432/todo_list';
 
 router.get('/', function(req,res){
-  console.log('got to tasks.js correctly!');
-  res.sendStatus(201);
+  pg.connect(connectionString, function(err, client, done) {
+    if(err) {
+      console.log('connection error: ', err);
+      res.sendStatus(500);
+    }
+
+    client.query(
+      'SELECT * FROM tasks', function(err, result) {
+        done();
+
+        if(err) {
+          console.log('insert query error: ', err);
+          res.sendStatus(500);
+        } else {
+          res.send(result.rows);
+        }
+      });
+
+  });
 });
 
 router.post('/', function(req, res){

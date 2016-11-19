@@ -33,8 +33,9 @@ $(document).ready(function(){
     $.ajax({
       type: 'GET',
       url: '/tasks',
-      success: function(response){
+      success: function(tasks){
         console.log('get tasks successful!');
+        console.log(tasks);
       },
       error: function(){
         console.log('could not get tasks');
