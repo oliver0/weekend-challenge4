@@ -1,3 +1,6 @@
 $(document).ready(function(){
-  console.log("jquery works!");
+
+  $('#submit').on('click', function(){
+    console.log($('#task').val());
+  });
 });
