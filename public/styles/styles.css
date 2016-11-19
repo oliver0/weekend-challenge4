@@ -27,3 +27,8 @@ label {
   height: 50px;
   font-size: 25px;
 }
+
+#taskBox{
+  
+  background-color: white;
+}

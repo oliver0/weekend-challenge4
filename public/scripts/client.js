@@ -33,14 +33,24 @@ $(document).ready(function(){
     $.ajax({
       type: 'GET',
       url: '/tasks',
+      // tasks paramater contains all of the table rows as an array of objects
       success: function(tasks){
         console.log('get tasks successful!');
-        console.log(tasks);
+        appendTasks(tasks);
       },
       error: function(){
         console.log('could not get tasks');
       }
     });
+  }
+
+  function appendTasks(tasks){
+    var $taskBox = $('#taskBox');
+    $taskBox.empty();
+
+    for (var i = 0; i < tasks.length; i++) {
+      $taskBox.append('<p>'+tasks[i].task_name+'</p>');
+    }
   }
 
 
