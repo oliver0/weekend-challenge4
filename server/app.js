@@ -9,7 +9,7 @@ var tasks = require('./routes/tasks');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // tasks route
-app.use('/task', tasks);
+app.use('/tasks', tasks);
 
 // Catchall route
 app.get('/', function (req, res) {

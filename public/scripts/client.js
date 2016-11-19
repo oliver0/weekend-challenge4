@@ -12,6 +12,17 @@ $(document).ready(function(){
     task.task_name = userTask;
     task.complete = "No";
     console.log(task);
+    $.ajax({
+      type: 'POST',
+      url: '/tasks',
+      data: task,
+      success: function(response){
+        console.log('task post successful!!');
+      },
+      error: function(){
+        console.log('could not post task');
+      }
+    });
   }
 
 
