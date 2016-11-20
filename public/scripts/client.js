@@ -13,9 +13,11 @@ $(document).ready(function(){
     $(this).css('background-color', '#444444');
   });
 
+  // listens for delete button click. Makes function call to delete task from database then appends
+  // updated table to DOM (inside deleteTask function it calls getTasks)
   $('#taskBox').on('click', '.delete', function(){
-    console.log('clicked');
-
+    var id = $(this).parent().data('id');
+    deleteTask(id);
   });
 
   // takes in task as a parameter. Makes task object with task_name and complete properties. Makes ajax post to
@@ -50,6 +52,7 @@ $(document).ready(function(){
       success: function(tasks){
         console.log('get tasks successful!');
         appendTasks(tasks);
+        console.log(tasks);
       },
       error: function(){
         console.log('could not get tasks');
@@ -57,15 +60,26 @@ $(document).ready(function(){
     });
   }
 
-  function deleteTask(){
+  // makes ajax call to tasks.js which queries the tasks table and deletes the task that matches
+  // the id given as a parameter. if successful getTasks is called
+  function deleteTask(id){
+
     $.ajax({
       type: 'DELETE',
-      url: '/tasks'
+      url: '/tasks/' + id,
+      success: function(response){
+        console.log('delete successful!');
+        getTasks();
+      },
+      error: function(){
+        console.log('could not delete');
+      }
+
     });
   }
 
   // Make a PUT request to the tasks.js route
-  function updateTaskCompletion (){
+  function updateTaskCompletion (complete){
 
     $.ajax({
       type: 'PUT',
@@ -83,9 +97,8 @@ $(document).ready(function(){
     for (var i = 0; i < tasks.length; i++) {
       $taskBox.append('<div class="task"><div class="checkbox"></div><p>'+
                         tasks[i].task_name+'</p><button class="delete">Delete</button>'+
-                        '<button>Complete</button><div>');
+                        '<div>');
       $taskBox.children().last().data('id', tasks[i].id);
-      console.log($taskBox.children().last().data());                  
     }
   }
 

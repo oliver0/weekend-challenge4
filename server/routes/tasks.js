@@ -51,4 +51,30 @@ router.post('/', function(req, res){
   });
 });
 
+router.delete('/:id', function(req, res) {
+  taskID = req.params.id;
+
+  console.log('task id to delete: ', taskID);
+  pg.connect(connectionString, function(err, client, done) {
+    if(err) {
+      console.log('connection error: ', err);
+      res.sendStatus(500);
+    }
+
+    client.query(
+      'DELETE FROM tasks WHERE id = $1',
+      [taskID],
+      function(err, result) {
+        done();
+
+        if(err) {
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      });
+    });
+
+});
+
 module.exports = router;
