@@ -9,3 +9,6 @@
 9. [X] Make SELECT query to database, send back the tasks if found
 10.[] On client side write append to DOM function. Here is where it could work
       to make the order based on complete/not complete.
+11.[] Make delete button functional. Write ajax call to tasks.js then make delete query.
+12.[] Use PUT and UPDATE to alter the complete property. This is what will be used for the order.
+13.[]

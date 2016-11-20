@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  getTasks();
   // listener for add button. When clicked addTask function is run, using the task in input field as parameter
   $('#add').on('click', function(){
 
@@ -10,6 +11,11 @@ $(document).ready(function(){
   $('#taskBox').on('click', '.checkbox', function(){
     console.log('clicked');
     $(this).css('background-color', '#444444');
+  });
+
+  $('#taskBox').on('click', '.delete', function(){
+    console.log('clicked');
+
   });
 
   // takes in task as a parameter. Makes task object with task_name and complete properties. Makes ajax post to
@@ -51,12 +57,35 @@ $(document).ready(function(){
     });
   }
 
+  function deleteTask(){
+    $.ajax({
+      type: 'DELETE',
+      url: '/tasks'
+    });
+  }
+
+  // Make a PUT request to the tasks.js route
+  function updateTaskCompletion (){
+
+    $.ajax({
+      type: 'PUT',
+      url: '/tasks',
+    });
+  }
+
+
+  // this takes in the array of row objects from tasks table and appends a div with the task name, a delete
+  // button and a checkbox div.
   function appendTasks(tasks){
     var $taskBox = $('#taskBox');
     $taskBox.empty();
 
     for (var i = 0; i < tasks.length; i++) {
-      $taskBox.append('<div class="task"><div class="checkbox"></div><p>'+tasks[i].task_name+'</p><button>Delete</button><button>Complete</button><div>');
+      $taskBox.append('<div class="task"><div class="checkbox"></div><p>'+
+                        tasks[i].task_name+'</p><button class="delete">Delete</button>'+
+                        '<button>Complete</button><div>');
+      $taskBox.children().last().data('id', tasks[i].id);
+      console.log($taskBox.children().last().data());                  
     }
   }
 
