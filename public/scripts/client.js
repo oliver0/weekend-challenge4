@@ -1,8 +1,15 @@
 $(document).ready(function(){
   // listener for add button. When clicked addTask function is run, using the task in input field as parameter
   $('#add').on('click', function(){
+
     var userTask = $('#task').val();
+    $('#task').val('');
     addTask(userTask);
+  });
+
+  $('#taskBox').on('click', '.checkbox', function(){
+    console.log('clicked');
+    $(this).css('background-color', '#444444');
   });
 
   // takes in task as a parameter. Makes task object with task_name and complete properties. Makes ajax post to
@@ -49,7 +56,7 @@ $(document).ready(function(){
     $taskBox.empty();
 
     for (var i = 0; i < tasks.length; i++) {
-      $taskBox.append('<p>'+tasks[i].task_name+'</p>');
+      $taskBox.append('<div class="task"><div class="checkbox"></div><p>'+tasks[i].task_name+'</p><button>Delete</button><button>Complete</button><div>');
     }
   }
 
