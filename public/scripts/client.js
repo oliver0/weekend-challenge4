@@ -21,10 +21,6 @@ $(document).ready(function(){
   $('#taskBox').on('click', '.checkbox', function(){
     var id = $(this).parent().data('id');
     var taskComplete = $(this).attr('class').split(' ')[1];
-    $(this).parent().find('p').css('text-decoration', 'line-through');
-    // if(taskComplete = "Yes"){
-    //   $(this).parent().
-    // }
     updateTaskCompletion(taskComplete, id);
   });
 
