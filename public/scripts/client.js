@@ -6,9 +6,13 @@ $(document).ready(function(){
   $('#add').on('click', function(){
 
     var userTask = $('#task').val();
-    $('#task').val('');
-    addTask(userTask);
-    console.log('clicked');
+    if(userTask != ''){
+      $('#task').val('');
+      addTask(userTask);
+    } else {
+      alert("You haven't entered anything yet!");
+    }
+
   });
 
   // when checkbox is clicked get the id and the complete status from the task and the checkbox respectively.
