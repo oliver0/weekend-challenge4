@@ -16,6 +16,10 @@ $(document).ready(function(){
   $('#taskBox').on('click', '.checkbox', function(){
     var id = $(this).parent().data('id');
     var taskComplete = $(this).attr('class').split(' ')[1];
+    $(this).parent().find('p').css('text-decoration', 'line-through');
+    // if(taskComplete = "Yes"){
+    //   $(this).parent().
+    // }
     updateTaskCompletion(taskComplete, id);
   });
 
@@ -131,6 +135,10 @@ $(document).ready(function(){
       task.append('<div class="checkbox '+ tasks[i].complete+ '"></div>');
       task.append('<button class="delete">x</button>');
       task.append('<p>'+ tasks[i].task_name+ '</p>');
+      var $taskName = task.find('p');
+      if (tasks[i].complete == 'Yes') {
+        $taskName.css('text-decoration', 'line-through');
+      }
       task.data('id', tasks[i].id); // give tasks id so they can be easily found
 
     }

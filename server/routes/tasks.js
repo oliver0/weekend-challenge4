@@ -11,7 +11,7 @@ router.get('/', function(req,res){
     }
 
     client.query(
-      'SELECT * FROM tasks', function(err, result) {
+      'SELECT * FROM tasks ORDER BY complete ASC;', function(err, result) {
         done();
 
         if(err) {
