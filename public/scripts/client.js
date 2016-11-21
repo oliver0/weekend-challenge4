@@ -6,6 +6,7 @@ $(document).ready(function(){
   $('#add').on('click', function(){
 
     var userTask = $('#task').val();
+    // if there's no input when add is clicked the user is alerted and nothing else happens
     if(userTask != ''){
       $('#task').val('');
       addTask(userTask);
@@ -122,7 +123,6 @@ $(document).ready(function(){
       }
     });
   }
-
 
   // this takes in the array of row objects from tasks table and appends a div with the task name, a delete
   // button and a checkbox div.
