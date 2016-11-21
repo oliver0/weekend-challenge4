@@ -54,3 +54,11 @@ label {
 .checkbox:hover{
   background-color: #444444;
 }
+
+.Yes {
+  background-color: green;
+}
+
+.No{
+  background-color: white;
+}

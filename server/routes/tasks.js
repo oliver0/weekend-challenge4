@@ -25,6 +25,34 @@ router.get('/', function(req,res){
   });
 });
 
+router.get('/:id', function(req, res) {
+  console.log('completion get working!');
+  taskID = req.params.id;
+
+  pg.connect(connectionString, function(err, client, done) {
+    if(err) {
+      console.log('connection error: ', err);
+      res.sendStatus(500);
+    }
+
+    client.query(
+      'SELECT * FROM tasks WHERE id = $1',
+      [taskID],
+      function(err, result) {
+        done();
+        console.log(result.rows);
+
+        if(err) {
+          console.log('select query error: ', err);
+          res.sendStatus(500);
+        }
+        res.send(result.rows);
+
+    });
+
+  });
+});
+
 router.post('/', function(req, res){
   var task = req.body;
   pg.connect(connectionString, function(err, client, done) {
@@ -68,6 +96,33 @@ router.delete('/:id', function(req, res) {
         done();
 
         if(err) {
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      });
+    });
+
+});
+
+router.put('/:id', function(req, res) {
+  taskID = req.params.id;
+  isComplete = req.body;
+
+  console.log('task completion ', isComplete.complete);
+
+  pg.connect(connectionString, function(err, client, done) {
+    if(err) {
+      console.log('connection error: ', err);
+      res.sendStatus(500);
+    }
+
+    client.query(
+      'UPDATE tasks SET complete=$1 WHERE id=$2',
+      [isComplete.complete, taskID],
+      function(err, result) {
+        if(err) {
+          console.log('update error: ', err);
           res.sendStatus(500);
         } else {
           res.sendStatus(200);
