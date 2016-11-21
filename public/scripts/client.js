@@ -1,5 +1,4 @@
 
-var tasksObjects = [];
 $(document).ready(function(){
   getTasks();
 
@@ -12,33 +11,21 @@ $(document).ready(function(){
     console.log('clicked');
   });
 
+  // when checkbox is clicked get the id and the complete status from the task and the checkbox respectively.
+  // call the updateTaskCompletion function which updates status and calls getTasks();
   $('#taskBox').on('click', '.checkbox', function(){
     var id = $(this).parent().data('id');
     var taskComplete = $(this).attr('class').split(' ')[1];
-    updateTaskCompletion (taskComplete, id);
-
-    // $.ajax({
-    //   type: 'GET',
-    //   url: '/tasks/' + id,
-    //   // tasks paramater contains all of the table rows as an array of objects
-    //   success: function(tasks){
-    //     console.log('get tasks successful!');
-    //     taskComplete = tasks[0].complete;
-    //     updateTaskCompletion (taskComplete, id);
-    //
-    //
-    //   },
-    //   error: function(){
-    //     console.log('could not get tasks');
-    //   }
-    // });
+    updateTaskCompletion(taskComplete, id);
   });
 
   // listens for delete button click. Makes function call to delete task from database then appends
   // updated table to DOM (inside deleteTask function it calls getTasks)
   $('#taskBox').on('click', '.delete', function(){
     var id = $(this).parent().data('id');
-    deleteTask(id);
+    if(confirm('Are you sure you want to delete this task?')){
+      deleteTask(id);
+    }
   });
 
   // takes in task as a parameter. Makes task object with task_name and complete properties. Makes ajax post to
@@ -72,7 +59,6 @@ $(document).ready(function(){
       url: '/tasks',
       // tasks paramater contains all of the table rows as an array of objects
       success: function(tasks){
-        tasksObjects = tasks;
         console.log('get tasks successful!');
         appendTasks(tasks);
 
@@ -103,9 +89,9 @@ $(document).ready(function(){
     });
   }
 
-  // Make a PUT request to the tasks.js route
+  // Make a PUT request to the tasks.js route which will make a query to update the complete status of task
   function updateTaskCompletion (completeText, id){
-
+    //change complete status to the opposite and insert into object
 
     var isComplete = {};
     if (completeText=='No') {
@@ -138,23 +124,15 @@ $(document).ready(function(){
     $taskBox.empty();
 
     for (var i = 0; i < tasks.length; i++) {
-      console.log(tasks.length);
-      $taskBox.append('<div class="task"></div>');
+      $taskBox.append('<div class="task"></div>'); // append task div first then append contents to task
       var task = $taskBox.children().last();
-      console.log('task complete: ', tasks[i].complete)
-      // if (tasks[i].complete == 'Yes') {
-      //   task.append('<div class="checkbox complete"></div>');
-      // } else{
-      //   task.append('<div class="checkbox incomplete "></div>');
-      // }
+
+      // use the complete status of task as the second class of checkbox, which determines color
       task.append('<div class="checkbox '+ tasks[i].complete+ '"></div>');
+      task.append('<button class="delete">x</button>');
       task.append('<p>'+ tasks[i].task_name+ '</p>');
-      task.append('<button class="delete">Delete</button>');
-      task.data('id', tasks[i].id);
-      // $taskBox.append('<div class="task"><div class="checkbox"></div><p>'+
-      //                   tasks[i].task_name+'</p><button class="delete">Delete</button>'+
-      //                   '<div>');
-      // $taskBox.children().last().data('id', tasks[i].id);
+      task.data('id', tasks[i].id); // give tasks id so they can be easily found
+
     }
   }
 
