@@ -3,7 +3,7 @@
 }
 
 input {
- width: 80%;
+ width: 90%;
  height: 50px;
  font-size: 25px;
  padding: 5px 15px;
@@ -14,17 +14,14 @@ body{
   background-color: #bbbbbb;
 }
 
-label {
-  font-size: 25px;
-}
-
 p{
+  font-family: 'Indie Flower', cursive;
   padding-left: 50px;
   font-size: 30px;
   clear: both;
   margin-top: -15px;
-
 }
+
 
 
 #container {
@@ -33,6 +30,8 @@ p{
 }
 
 #add {
+  color: white;
+  background-color: blue;
   height: 50px;
   font-size: 25px;
 }
@@ -43,6 +42,7 @@ p{
 
 
 .task {
+
   padding: 5px;
   border: 1px solid grey;
   font-weight: bold;
